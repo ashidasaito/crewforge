@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Build on source edit",
+      "description": "Run the full type check and production build after the agent saves or edits a source file under src/, so TypeScript errors are caught immediately instead of at demo time.",
+      "trigger": "PostFileSave",
+      "matcher": "^src/.*\\.(ts|tsx|css)$",
+      "action": {
+        "type": "command",
+        "command": "npm run build"
+      },
+      "timeout": 120
+    }
+  ]
+}
