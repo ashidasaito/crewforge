@@ -842,3 +842,25 @@ label {
     display: none;
   }
 }
+
+/* Narrow phones (<= 600px) — fixes verified at 390px, 2026-11-18.
+ * .form-row stays two columns down to 601px, but at phone widths the
+ * paired inputs get too narrow: the Division select truncates its value
+ * ("Research & S…") and the colour/effort fields squeeze. Stack them.
+ * The tour's compact agent grid is 5 columns by design (it must fit
+ * all 14 cards above the tour card on desktop); at phone widths 5
+ * columns are ~64px each, so names clip mid-word, badges spill past
+ * the card edge, and the page scrolls horizontally (scrollWidth 412
+ * at 390px). 3 columns keeps every card readable (~111px: names,
+ * the longest badge word, and the Resolve button all fit) — the grid
+ * grows taller instead, which the tour's anchor logic already handles
+ * by scrolling and shrinking the card (same as steps 3/6). */
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-grid.tour-compact-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
