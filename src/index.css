@@ -349,6 +349,37 @@ label {
   gap: 12px;
 }
 
+/* Compact grid, applied by the demo tour on step 1 only
+ * (.tour-compact-grid on #agent-cards): five dense columns, smaller
+ * avatars — the whole 15-agent grid fits in ~430px so the grid AND
+ * the tour card both fit in a 720px viewport with the grid fully
+ * visible. The task line stays: step 1's copy promises the cards show
+ * what each agent is working on. Removed when the tour leaves step 1. */
+.agent-grid.tour-compact-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.agent-grid.tour-compact-grid .agent-card {
+  padding: 8px;
+  gap: 4px;
+}
+
+/* The task line stays (step 1's copy promises the cards show what
+ * each agent is working on) but clamps to one line with an ellipsis,
+ * so a long task title cannot wrap the card taller. */
+.agent-grid.tour-compact-grid .agent-task {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.agent-grid.tour-compact-grid .agent-avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
 .agent-card {
   background: var(--panel);
   border: 1px solid var(--border);
