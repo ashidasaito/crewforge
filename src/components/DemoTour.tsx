@@ -8,12 +8,16 @@
  * explains, each step scrolls its target into view, cuts a hole in the
  * dim around the target (`.tour-dim` + clip-path) so the target stays
  * fully visible and undimmed, and anchors the card beside the target —
- * below first, then above, then to the side. For a target taller than
- * the viewport minus the card (the agent-cards grid), the page is
- * scrolled a little further so the card fits below the target's bottom
- * edge; only if nothing fits does the card shrink with an internal
- * scroll. The card never overlaps the target rect. A missing target
- * falls back to the old full dim + bottom-centred card.
+ * below first, then above, then to the side. Step 1 compacts the
+ * agent-cards grid (`.tour-compact-grid`) so the whole grid and the card
+ * both fit in a 720px viewport. When a step's target unmounts after its
+ * action (step 4: the task form is gone once the view switches to the
+ * Office), the card re-anchors to a fallback element instead of falling
+ * back to the old bottom-centred card — for step 4 that is the newly
+ * assigned task card (`data-task-title`). Step 6 follows that same task
+ * card as the simulation moves it between columns, scrolling it into
+ * view and re-anchoring while it is on screen. A missing target falls
+ * back to the old full dim + bottom-centred card.
  */
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { View, DemoAction } from '../App';
@@ -31,7 +35,16 @@ interface TourStep {
   view: View;
   targetId: string;
   action?: DemoAction;
+  /** Element to anchor to when the primary target is gone (step 4). */
+  fallbackSelector?: string;
+  /** Task-card title to follow while this step is active (step 6). */
+  followTaskTitle?: string;
+  /** Compact the target grid so it fits with the card (step 1). */
+  compactGrid?: boolean;
 }
+
+/** The demo task the tour creates in step 4 and watches in step 6. */
+const DEMO_TASK_TITLE = 'Ship the demo feature';
 
 const STEPS: TourStep[] = [
   {
@@ -39,6 +52,7 @@ const STEPS: TourStep[] = [
     body: 'This is the office crew — 14 agents across 6 divisions. Each card shows an agent’s role, skills, and what they are working on right now.',
     view: 'office',
     targetId: 'agent-cards',
+    compactGrid: true,
   },
   {
     title: 'This is the office map',
@@ -59,6 +73,7 @@ const STEPS: TourStep[] = [
     view: 'forge',
     targetId: 'task-form',
     action: 'assign-task',
+    fallbackSelector: `[data-task-title="${DEMO_TASK_TITLE}"]`,
   },
   {
     title: 'Speed up time',
@@ -72,6 +87,7 @@ const STEPS: TourStep[] = [
     body: 'Keep an eye on the task board and the activity feed. Bolt’s task will move from Doing to Done — the crew really does the work.',
     view: 'office',
     targetId: 'task-board',
+    followTaskTitle: DEMO_TASK_TITLE,
   },
 ];
 
@@ -171,6 +187,36 @@ function clearHighlights(): void {
   });
 }
 
+function clearCompactGrids(): void {
+  document.querySelectorAll('.tour-compact-grid').forEach((el) => {
+    el.classList.remove('tour-compact-grid');
+  });
+}
+
+/**
+ * Resolve the element a step anchors to. A follow step (6) anchors to
+ * the demo task card itself while it exists, falling back to the whole
+ * board; a step whose target unmounts after its action (4) falls back
+ * to its fallback selector. `centered` is true for a small card target,
+ * which is scrolled to the middle of the viewport so the tour card
+ * fits below it; full-size targets scroll to the top as before.
+ */
+function resolveTarget(step: TourStep): { el: HTMLElement; centered: boolean } | null {
+  if (step.followTaskTitle) {
+    const card = document.querySelector(
+      `[data-task-title="${CSS.escape(step.followTaskTitle)}"]`,
+    );
+    if (card) return { el: card as HTMLElement, centered: true };
+  }
+  const primary = document.getElementById(step.targetId);
+  if (primary) return { el: primary, centered: false };
+  if (step.fallbackSelector) {
+    const fallback = document.querySelector(step.fallbackSelector);
+    if (fallback) return { el: fallback as HTMLElement, centered: true };
+  }
+  return null;
+}
+
 export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: DemoTourProps) {
   const [stepIndex, setStepIndex] = useState(0);
   const [doneActions, setDoneActions] = useState<Set<DemoAction>>(new Set());
@@ -194,6 +240,7 @@ export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: De
 
   const closeTour = useCallback(() => {
     clearHighlights();
+    clearCompactGrids();
     setAnchor(null);
     onClose();
   }, [onClose]);
@@ -201,18 +248,24 @@ export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: De
   /**
    * Scroll the step's target into view, then anchor the card to it.
    * A missing target clears the anchor (fallback: full dim, bottom card).
+   * Step 1 compacts the agent grid first so the whole grid fits above
+   * the card; other steps remove the compact class.
    */
   const relayout = useCallback(
     (allowShift: boolean) => {
       if (!open) return;
       const step = STEPS[stepIndex];
-      const el = document.getElementById(step.targetId);
-      if (!el) {
+      const found = resolveTarget(step);
+      clearCompactGrids();
+      if (!found) {
         setAnchor(null);
         return;
       }
+      const el = found.el;
+      if (step.compactGrid) el.classList.add('tour-compact-grid');
+      clearHighlights();
       el.classList.add('tour-highlight');
-      el.scrollIntoView({ behavior: 'auto', block: 'start' });
+      el.scrollIntoView({ behavior: 'auto', block: found.centered ? 'center' : 'start' });
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const cardW = Math.min(CARD_WIDTH, vw - 2 * MARGIN);
@@ -240,10 +293,17 @@ export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: De
   const reposition = useCallback(() => {
     if (!open) return;
     const step = STEPS[stepIndex];
-    const el = document.getElementById(step.targetId);
-    if (!el) {
+    const found = resolveTarget(step);
+    if (!found) {
       setAnchor(null);
       return;
+    }
+    const el = found.el;
+    // The followed task card can be re-created by React as it moves
+    // between columns; make sure the highlight sits on the live node.
+    if (!el.classList.contains('tour-highlight')) {
+      clearHighlights();
+      el.classList.add('tour-highlight');
     }
     const vw = window.innerWidth;
     const vh = window.innerHeight;
@@ -270,7 +330,8 @@ export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: De
     const id = window.setTimeout(() => layoutRef.current(true), 80);
     return () => {
       window.clearTimeout(id);
-      document.getElementById(step.targetId)?.classList.remove('tour-highlight');
+      clearHighlights();
+      clearCompactGrids();
     };
   }, [open, stepIndex, onGoToView]);
 
@@ -299,6 +360,33 @@ export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: De
     };
   }, [open ]);
 
+  // Step 6 follows the demo task card while the simulation moves it:
+  // the card can jump from Doing to Done (or stall there if Bolt is
+  // blocked), so keep it scrolled into view and re-anchor the tour
+  // card to its live position. The card is kept near the middle of the
+  // viewport, not just inside it: at 4x other tasks keep completing
+  // above it in the Done column, and each one pushes it down a card
+  // height — centred, one push still leaves it fully visible, and the
+  // next tick (400ms) re-centres it. No page move when it is already
+  // centred.
+  useEffect(() => {
+    if (!open || !STEPS[stepIndex].followTaskTitle) return;
+    const id = window.setInterval(() => {
+      const card = document.querySelector(
+        `[data-task-title="${CSS.escape(DEMO_TASK_TITLE)}"]`,
+      );
+      if (!card) return;
+      const rect = card.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const centre = rect.top + rect.height / 2;
+      if (rect.top < 0 || rect.bottom > vh || Math.abs(centre - vh / 2) > 80) {
+        card.scrollIntoView({ behavior: 'auto', block: 'center' });
+      }
+      repositionRef.current();
+    }, 400);
+    return () => window.clearInterval(id);
+  }, [open, stepIndex]);
+
   // Escape closes the tour at any time.
   useEffect(() => {
     if (!open) return;
@@ -310,7 +398,13 @@ export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: De
   }, [open, closeTour]);
 
   // Unmounting (or closing) must never leave a highlight behind.
-  useEffect(() => clearHighlights, []);
+  useEffect(
+    () => () => {
+      clearHighlights();
+      clearCompactGrids();
+    },
+    [],
+  );
 
   if (!open) return null;
 
@@ -323,10 +417,13 @@ export default function DemoTour({ open, onClose, onGoToView, onDemoAction }: De
     onDemoAction(step.action);
     setDoneActions((prev) => new Set(prev).add(step.action as DemoAction));
     // The action can change the view or grow the target (Bolt joins the
-    // agent list), so re-anchor once the app has re-rendered. If the
-    // target is gone (the action navigated away), this clears the anchor
-    // and the card falls back to the bottom-centred position.
+    // agent list), so re-anchor once the app has re-rendered. Step 4's
+    // action switches the view to the Office and unmounts the task form,
+    // so re-anchor repeatedly until the fallback task card is found and
+    // settled — the card must never sit in the old bottom-centred spot.
     window.setTimeout(() => layoutRef.current(true), 120);
+    window.setTimeout(() => layoutRef.current(true), 350);
+    window.setTimeout(() => layoutRef.current(true), 800);
   };
 
   const goNext = () => {

@@ -54,6 +54,7 @@ function TaskCardView({
     <article
       className={task.status === 'done' ? 'task-card done' : 'task-card'}
       style={style}
+      data-task-title={task.title}
       draggable
       onDragStart={(e) => {
         e.dataTransfer.setData('text/plain', task.id);
