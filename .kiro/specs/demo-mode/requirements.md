@@ -11,7 +11,7 @@ Demo mode is how a stranger understands CrewForge in under two minutes: the real
 
 ### Guided tour
 3. WHEN the founder presses "Play demo" THEN the system SHALL open a guided tour overlay with a step counter (e.g. "Step 2 of 6").
-4. WHEN a tour step targets a part of the UI THEN the system SHALL navigate to the right view and SHALL highlight the target element.
+4. WHEN a tour step targets a part of the UI THEN the system SHALL navigate to the right view, SHALL scroll the target into view, SHALL leave the target undimmed inside a cutout in the dim with a highlight ring, and SHALL anchor the step card beside the target (below first, then above, then to the side) so the card never covers the target.
 5. WHEN the founder presses Next THEN the system SHALL advance to the next step; Back SHALL go to the previous step; Close (or Escape) SHALL exit the tour at any time.
 6. WHEN the tour reaches the "forge an agent" step THEN the system SHALL offer a one-click action that forges a sample agent ("Bolt", Demo Agent, Product Development) without typing.
 7. WHEN the tour reaches the "assign a task" step THEN the system SHALL offer a one-click action that creates a small task and assigns it to the sample agent.
