@@ -1,7 +1,7 @@
 # Spec: demo-mode — Design
 
 ## Overview
-Demo mode is three things: seed data (`src/lib/seed.ts`, already written — the real MINOKATSU crew), the guided tour (`DemoTour.tsx`), and the data tools (export / import / reset, wired in `App.tsx`). The tour drives the app through callbacks App already provides (`onGoToView`, `onDemoAction`); it never mutates state directly.
+Demo mode is three things: seed data (`src/lib/seed.ts`, already written — the real office crew), the guided tour (`DemoTour.tsx`), and the data tools (export / import / reset, wired in `App.tsx`). The tour drives the app through callbacks App already provides (`onGoToView`, `onDemoAction`); it never mutates state directly.
 
 ## Components
 - `DemoTour` (`src/components/DemoTour.tsx`) — modal overlay (`.tour-overlay` + `.tour-card`) with:

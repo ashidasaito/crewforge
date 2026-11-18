@@ -1,12 +1,12 @@
 # Spec: demo-mode — Requirements
 
 ## Introduction
-Demo mode is how a stranger understands CrewForge in under two minutes: the real MINOKATSU seed crew, a guided tour that drives the app, and data tools (export / import / reset) so the demo is repeatable. The tour must work with zero setup and must never break the app state.
+Demo mode is how a stranger understands CrewForge in under two minutes: the real office seed crew, a guided tour that drives the app, and data tools (export / import / reset) so the demo is repeatable. The tour must work with zero setup and must never break the app state.
 
 ## Requirements
 
 ### Seed data
-1. WHEN the app loads with no saved state THEN the system SHALL seed the real MINOKATSU crew (14 agents, 6 divisions) and 16 realistic tasks in mixed states (To Do / Doing / Done).
+1. WHEN the app loads with no saved state THEN the system SHALL seed the real office crew (14 agents, 6 divisions) and 16 realistic tasks in mixed states (To Do / Doing / Done).
 2. WHEN the founder presses "Reset demo crew" and confirms THEN the system SHALL replace the current state with the seed and SHALL show a confirmation message.
 
 ### Guided tour
