@@ -34,11 +34,15 @@ A root `AGENTS.md` mirrors the same rules for any agent tool that opens the repo
 
 The 4,000 free Kiroween credits were redeemed on the founder's Kiro account (Free plan, GitHub sign-in) and are used in **Kiro IDE on the founder's laptop** for spec-driven iteration — opening this repo in Kiro, running the specs, and letting Kiro implement/refine tasks from `tasks.md`. That step happens on the laptop because this build ran on a VM without a Kiro IDE install; the repo is structured so the Kiro pass is a normal continuation of the same spec workflow, not a separate process.
 
+## Agent hooks
+
+One hook is committed in `.kiro/hooks/build-on-source-edit.json` (schema v1, per the official Kiro Hooks documentation at https://kiro.dev/docs/hooks/): after the agent saves or edits a source file under `src/`, Kiro runs `npm run build` in the project root, so TypeScript errors surface immediately instead of at demo time. The file is valid JSON matching the documented schema (`version: "v1"`, `PostFileSave` trigger, a path-regex matcher for `src/` TypeScript/CSS files, a `command` action), and the command it invokes passes in this repo. The hook itself runs inside Kiro IDE/CLI on the founder's laptop — it was not executed on the build VM, which has no Kiro install.
+
 ## What Kiro did NOT do
 
 - Kiro did not invent the product: the concept, the office story, and the seed data come from the founder's real office.
 - No vibe coding: no feature was built from a bare prompt without a spec. Where the implementation deviated from a spec, the spec was updated first.
-- No MCP servers, custom agents, hooks, or property-based testing were used in this build. Those are real Kiro features we did not need; claiming them would be dishonest.
+- No MCP servers, custom agents, or property-based testing were used in this build. One agent hook (build-on-source-edit, above) is now committed. Those are real Kiro features we did not need beyond that one; claiming more would be dishonest.
 
 ## Compared to vibe coding
 
