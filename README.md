@@ -8,7 +8,7 @@ Built for **Kiroween 2026** (Frankenstein category) with **Kiro**, using spec-dr
 
 ## The true story
 
-This is not a made-up demo. The founder runs **MINOKATSU**, a real 15-person AI office, every day — six divisions (Research & Security, Content & Video, Freelance & Bounty, Admin & Money, Learning & Presentation, Product Development) with named agents doing real jobs: Kira hunts bounties, Nana builds games, Mizuki cuts clips, Gita posts, Momo monitors the feeds, Nadia keeps the savings ledger. CrewForge is the tool he wished he had on day one, and the app ships with the real MINOKATSU crew as its seed data.
+This is not a made-up demo. The founder runs a real 15-person AI office, every day — six divisions (Research & Security, Content & Video, Freelance & Bounty, Admin & Money, Learning & Presentation, Product Development) with named agents doing real jobs: Kira hunts bounties, Nana builds games, Mizuki cuts clips, Gita posts, Momo monitors the feeds, Nadia keeps the savings ledger. CrewForge is the tool he wished he had on day one, and the app ships with the real office crew as its seed data.
 
 ## What it does
 
@@ -46,7 +46,7 @@ src/
 ├── index.css          # The only stylesheet
 ├── lib/
 │   ├── types.ts       # Data model + divisions (the contract)
-│   ├── seed.ts        # Real MINOKATSU crew + realistic tasks
+│   ├── seed.ts        # Real office crew + realistic tasks
 │   ├── store.ts       # localStorage load/save/export/import
 │   └── sim.ts         # Pure simulation engine
 └── components/

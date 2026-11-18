@@ -3,7 +3,7 @@
 Instructions for any AI agent working in this repo (Kiro reads this as an always-included steering file).
 
 ## The product
-CrewForge is a local-first web app: a solo founder forges a crew of AI agents, assigns tasks, and watches the crew work in a live office dashboard. Built for Kiroween 2026 (Frankenstein). The seed crew is the real MINOKATSU office — keep names, roles, and tasks truthful; do not invent people.
+CrewForge is a local-first web app: a solo founder forges a crew of AI agents, assigns tasks, and watches the crew work in a live office dashboard. Built for Kiroween 2026 (Frankenstein). The seed crew is the founder's real office — keep names, roles, and tasks truthful; do not invent people.
 
 ## Rules
 - **Specs first.** A feature starts in `.kiro/specs/<name>/` (requirements in EARS, then design, then tasks). Implement from `tasks.md` in order. Update the spec if the implementation must deviate.

@@ -24,7 +24,7 @@ The specs are plain Markdown, committed in `.kiro/specs/`, and they are the reas
 
 `.kiro/steering/` carries the lasting project context that every session loads:
 
-- `product.md` — what CrewForge is, who it is for, the true MINOKATSU story, and the non-goals.
+- `product.md` — what CrewForge is, who it is for, the true office story, and the non-goals.
 - `tech.md` — the stack (Vite + React + TypeScript strict), the commands, and the hard constraints (single state owner, pure simulation engine, no network at runtime, English everywhere).
 - `structure.md` — the directory layout, the component contracts, the CSS class system, and the stable DOM ids the demo tour targets.
 
@@ -36,7 +36,7 @@ The 4,000 free Kiroween credits were redeemed on the founder's Kiro account (Fre
 
 ## What Kiro did NOT do
 
-- Kiro did not invent the product: the concept, the MINOKATSU story, and the seed data come from the founder's real office.
+- Kiro did not invent the product: the concept, the office story, and the seed data come from the founder's real office.
 - No vibe coding: no feature was built from a bare prompt without a spec. Where the implementation deviated from a spec, the spec was updated first.
 - No MCP servers, custom agents, hooks, or property-based testing were used in this build. Those are real Kiro features we did not need; claiming them would be dishonest.
 
