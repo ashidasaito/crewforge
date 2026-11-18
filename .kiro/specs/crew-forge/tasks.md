@@ -1,0 +1,22 @@
+# Spec: crew-forge — Tasks
+
+- [ ] 1. Replace the `ForgeView` stub with the real two-column layout (agents left, tasks right; stacked under 900px)
+  - _Requirements: 1_
+- [ ] 2. Implement `AgentForm` (`src/components/AgentForm.tsx`) for create + edit
+  - Name + role required with inline errors; division select; color input defaulting to the division color; emoji input; skills as comma-separated tags
+  - _Requirements: 2, 3, 4_
+- [ ] 3. Implement the agent list with Edit / Delete and status + current-task display
+  - Delete confirms with `window.confirm` and returns the agent's tasks to the queue (via `onDeleteAgent`)
+  - _Requirements: 1, 6_
+- [ ] 4. Handle division change on agent edit: unassign current task first, then apply the patch
+  - _Requirements: 5_
+- [ ] 5. Implement `TaskForm` (`src/components/TaskForm.tsx`) for create + edit
+  - Title required, effort clamped 1–5 with an error outside the range; assignee picker limited to agents in the chosen division; changing division resets the assignee
+  - _Requirements: 7, 8, 11_
+- [ ] 6. Implement the task list with Edit / Delete and quick-reassign select
+  - Delete frees the assignee (via `onDeleteTask`); reassign surfaces `assignTask` errors in the toast
+  - _Requirements: 9, 10, 12, 13, 14, 15_
+- [ ] 7. Implement division filter + case-insensitive search for both lists
+  - _Requirements: 16, 17_
+- [ ] 8. Add DOM ids `#agent-list` and `#task-form`; verify the Forge end-to-end (forge agent → create task → assign → Working) and run `npm run build`
+  - _Requirements: Acceptance criteria_
