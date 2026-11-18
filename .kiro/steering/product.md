@@ -12,7 +12,7 @@ CrewForge is a local-first web app that lets a solo founder **forge a crew of AI
 - **Hackathon judges and first-time visitors**, who must understand the product in under 2 minutes with zero setup (demo mode).
 
 ## The true story (the pitch)
-Riza runs MINOKATSU, a real 15-person AI office, every day — six divisions (Research & Security, Content & Video, Freelance & Bounty, Admin & Money, Learning & Presentation, Product Development) with named agents doing real jobs (Kira hunts bounties, Nana builds games, Mizuki cuts clips, Gita posts, Momo monitors, Nadia keeps the ledger). CrewForge is the tool he wished he had on day one. The demo ships with the real MINOKATSU crew as seed data.
+Riza runs a real 15-person AI office, every day — six divisions (Research & Security, Content & Video, Freelance & Bounty, Admin & Money, Learning & Presentation, Product Development) with named agents doing real jobs (Kira hunts bounties, Nana builds games, Mizuki cuts clips, Gita posts, Momo monitors, Nadia keeps the ledger). CrewForge is the tool he wished he had on day one. The demo ships with the real office crew as seed data.
 
 ## Core loop
 1. Forge agents (name, role, division, skills) and tasks (title, division, effort, priority).

@@ -28,7 +28,7 @@ crewforge/
     ├── index.css               # The only stylesheet; class names are the design system
     ├── lib/
     │   ├── types.ts            # Data model + DIVISIONS (the contract)
-    │   ├── seed.ts             # Real MINOKATSU crew + realistic tasks
+    │   ├── seed.ts             # Real office crew + realistic tasks
     │   ├── store.ts            # localStorage load/save/export/import
     │   └── sim.ts              # Pure simulation engine
     └── components/
