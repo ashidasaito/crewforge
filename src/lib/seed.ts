@@ -105,7 +105,7 @@ export function buildSeedState(): AppState {
     task('Monitor GuarEmperor feed', 'Watch for new calls and log them with links, no buy advice.', 'content', 2, 'low', 'Momo', 'doing', 20, agents),
     task('Chase the Raenest credit', 'Track the Superteam referral; Raenest is the target when a credit lands.', 'freelance', 2, 'high', 'Rio', 'todo', 0, agents),
     task('Reconcile savings ledger', 'Update the 2030 savings sheet with this week’s small wins.', 'admin', 2, 'medium', 'Nadia', 'todo', 0, agents),
-    task('Review ARCHIEL audit fixes', 'Re-check the fixed contracts against the audit findings.', 'admin', 3, 'high', 'Misaki', 'doing', 55, agents),
+    task('Review audit fixes', 'Re-check the fixes against the audit findings.', 'admin', 3, 'high', 'Misaki', 'doing', 55, agents),
     task('Summarize Flow tutorial', 'One-page summary of the new Flow tricks for the Dongeng team.', 'learning', 1, 'low', 'Jurina', 'todo', 0, agents),
     task('Draft 10 quiz questions', 'Questions + answer key for next week’s study material.', 'learning', 2, 'medium', 'Eli', 'doing', 40, agents),
     task('Plan next week study schedule', 'Daily schedule, Friday 19:00 review, keep it realistic.', 'learning', 1, 'low', 'Hyde', 'todo', 0, agents),

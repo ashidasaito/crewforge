@@ -29,7 +29,7 @@ export const DIVISIONS: Division[] = [
   { id: 'freelance', name: 'Freelance & Bounty', room: 'Room 03', color: '#fbbf24', blurb: 'Gigs, bounties, and deadlines.' },
   { id: 'admin', name: 'Admin & Money', room: 'Room 04', color: '#34d399', blurb: 'Ledger, savings, and keeping the office honest.' },
   { id: 'learning', name: 'Learning & Presentation', room: 'Room 05', color: '#a78bfa', blurb: 'Study material, quizzes, and the big presentation.' },
-  { id: 'product', name: 'Product Development', room: 'Room 06', color: '#fb7185', blurb: 'ARCHIEL and the things we ship.' },
+  { id: 'product', name: 'Product Development', room: 'Room 06', color: '#fb7185', blurb: 'The things we build and ship.' },
 ];
 
 export function divisionById(id: DivisionId): Division {
