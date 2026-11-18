@@ -28,7 +28,7 @@ interface TourStep {
 const STEPS: TourStep[] = [
   {
     title: 'Meet the crew',
-    body: 'This is the MINOKATSU office crew — 14 agents across 6 divisions. Each card shows an agent’s role, skills, and what they are working on right now.',
+    body: 'This is the office crew — 14 agents across 6 divisions. Each card shows an agent’s role, skills, and what they are working on right now.',
     view: 'office',
     targetId: 'agent-cards',
   },
