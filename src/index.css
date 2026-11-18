@@ -688,25 +688,55 @@ label {
 }
 
 /* ---------------------------- demo tour -------------------------------- */
+/* Anchored tour: the overlay itself is transparent and lets clicks
+ * through only to its own children. .tour-blocker (transparent) keeps
+ * the tour modal — clicks on the page behind are swallowed, including
+ * inside the cutout hole. .tour-dim darkens everything except a
+ * clip-path hole around the highlighted target, so the target stays
+ * fully visible and undimmed. .tour-card is fixed-positioned by
+ * DemoTour.tsx (top/left inline, never overlapping the target);
+ * .tour-card--fallback is the old bottom-centred card, used only when
+ * a step's target is missing. */
 .tour-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 24px;
   z-index: 50;
+  pointer-events: none;
+}
+
+.tour-blocker {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  pointer-events: auto;
+}
+
+.tour-dim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
 }
 
 .tour-card {
+  position: fixed;
   background: var(--panel);
   border: 1px solid var(--accent-strong);
   border-radius: 16px;
+  width: min(560px, calc(100vw - 32px));
   max-width: 560px;
-  width: 100%;
   padding: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  overflow-y: auto;
+}
+
+.tour-card--fallback {
+  top: auto;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  max-height: calc(100vh - 48px);
 }
 
 .tour-card h2 {
@@ -743,9 +773,14 @@ label {
 }
 
 .tour-highlight {
+  position: relative;
+  z-index: 51;
   outline: 3px solid var(--stitch) !important;
   outline-offset: 3px;
   border-radius: 8px;
+  box-shadow:
+    0 0 0 6px rgba(74, 222, 128, 0.18),
+    0 0 24px rgba(74, 222, 128, 0.35);
 }
 
 /* ----------------------------- responsive ------------------------------ */
