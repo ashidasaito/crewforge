@@ -16,6 +16,7 @@ crewforge/
 ├── AGENTS.md                   # Cross-tool agent instructions (also read by Kiro)
 ├── .kiro/
 │   ├── steering/               # product.md, tech.md, structure.md (this file)
+│   ├── hooks/                  # build-on-source-edit.json — runs `npm run build` after src/ edits (see tech.md)
 │   └── specs/
 │       ├── crew-forge/         # requirements.md, design.md, tasks.md
 │       ├── office-dashboard/   # requirements.md, design.md, tasks.md
@@ -42,6 +43,7 @@ crewforge/
 - New components go in `src/components/` and are imported by exactly one view (or by `App.tsx`).
 - Reuse CSS classes from `src/index.css` (`.panel`, `.btn`, `.agent-card`, `.task-card`, `.board-col`, `.feed`, `.room`, `.stat`, `.form-card`, `.tour-card`, …). Add a new class only when no existing class fits, and document it in `structure.md`.
 - Tour overlay classes: `.tour-overlay` (transparent fixed shell, pointer-events none — children opt back in), `.tour-blocker` (transparent full-screen click swallow, keeps the tour modal), `.tour-dim` (full-screen dim with a `clip-path` cutout hole around the highlighted target), `.tour-card` (fixed-positioned by `DemoTour.tsx` via inline top/left, never overlapping the target), `.tour-card--fallback` (bottom-centred card, used only when a step's target is missing), `.tour-highlight` (green outline + glow, raises the target above the dim), `.tour-compact-grid` (dense 5-column agent grid used by the tour on step 1 only; removed on step change/close).
+- **Narrow phones (≤600px media query, added 2026-11-18, verified at 390px):** `.form-row` collapses to one column (two-column form rows truncate select values at phone widths), and `.agent-grid.tour-compact-grid` drops from 5 to 3 columns (5 columns are ~64px each at 390px: names clip mid-word, badges spill past the card, and the page scrolls horizontally). No new class was added — both rules override existing classes inside the new breakpoint. The 3-column grid is taller, which the tour's anchor logic already handles by scrolling and shrinking the card.
 
 ## DOM ids (stable — the demo tour targets them)
 - `#forge-view`, `#office-view`

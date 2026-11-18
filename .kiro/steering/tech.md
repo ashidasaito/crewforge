@@ -15,6 +15,10 @@ inclusion: always
 - `npm run build` — `tsc -b && vite build`; produces static `dist/`.
 - `npm run preview` — serve the production build locally.
 
+## Agent hooks (`.kiro/hooks/`)
+- **Build on source edit** (`.kiro/hooks/build-on-source-edit.json`, schema v1 per the official Kiro Hooks docs, https://kiro.dev/docs/hooks/): on the `PostFileSave` trigger, when the saved file matches `^src/.*\.(ts|tsx|css)$`, Kiro runs `npm run build` in the project root (timeout 120s). Type errors are caught immediately after an agent edit instead of at demo time. The hook is a plain JSON file following the documented v1 schema (`version`, `hooks[]` with `name`, `trigger`, `matcher`, `action: { type: "command", command }`, `timeout`); it activates automatically when a Kiro session starts — no registration needed. It runs inside Kiro IDE/CLI on the founder's laptop, where Kiro is installed; it cannot run on the build VM, which has no Kiro install.
+- **Do not invent hook schemas.** Any future hook must match the documented schema at https://kiro.dev/docs/hooks/ (PascalCase trigger names, `command` or `agent` actions) and its command must pass in this repo before it is committed.
+
 ## Constraints
 - **TypeScript strict is on** (`tsc -b` must pass with zero errors). No unused locals/parameters. No `any` without a comment explaining why.
 - **State ownership:** `App.tsx` owns the single `AppState`. Views receive state + callbacks as props and never keep their own copy of crew/task data. Local UI state (form inputs, filters, selected tab) lives in the component that uses it.
