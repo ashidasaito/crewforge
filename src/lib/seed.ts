@@ -1,7 +1,7 @@
 /**
  * CrewForge — demo seed data.
  *
- * The seed crew is the REAL MINOKATSU office: Riza (Founder & CEO) runs a
+ * The seed crew is the founder's REAL office: Riza (Founder & CEO) runs a
  * 15-person AI office every day, six divisions, agents with names and real
  * jobs. The seed below is the crew minus Riza himself (the founder is the
  * user of the app, shown in the header — not an assignable agent).
@@ -15,7 +15,7 @@ import { newId } from './types';
 export const FOUNDER = {
   name: 'Riza',
   title: 'Founder & CEO',
-  company: 'MINOKATSU',
+  company: 'AI Office',
 };
 
 function agent(
@@ -130,7 +130,7 @@ export function buildSeedState(): AppState {
     { id: newId(), tick: 0, at: Date.now() - 1000 * 60 * 31, kind: 'done', text: 'Mizuki finished "Publish MINA klip 05" — live on all three platforms.', agentId: byName('Mizuki').id },
     { id: newId(), tick: 0, at: Date.now() - 1000 * 60 * 12, kind: 'start', text: 'Nana started "Build VICE BAY v2 polish" — missions 2–6.', agentId: byName('Nana').id },
     { id: newId(), tick: 0, at: Date.now() - 1000 * 60 * 5, kind: 'start', text: 'Kira started "Hunt Superteam bounties" — scanning the board.', agentId: byName('Kira').id },
-    { id: newId(), tick: 0, at: Date.now() - 1000 * 60 * 2, kind: 'system', text: 'CrewForge seeded the MINOKATSU office — 14 agents, 6 divisions.', agentId: null },
+    { id: newId(), tick: 0, at: Date.now() - 1000 * 60 * 2, kind: 'system', text: 'CrewForge seeded the office — 14 agents, 6 divisions.', agentId: null },
   ];
 
   return {
