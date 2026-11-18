@@ -18,6 +18,11 @@ Demo mode is how a stranger understands CrewForge in under two minutes: the real
 8. WHEN the tour reaches the "speed up" step THEN the system SHALL offer a one-click action that sets the simulation to 4x and running.
 9. WHEN the tour ends THEN the system SHALL close the overlay and SHALL leave the app in a working state (the sample agent and task remain; nothing is deleted).
 
+### Guided tour — anchored-card fixes (2026-11-18)
+14. WHEN the tour is on step 1 ("Meet the crew") THEN the system SHALL compact the agent-cards grid (five dense columns, smaller avatars, task line clamped to one line) so the whole grid AND the step card both fit in a 720px viewport with the grid fully visible, and SHALL remove the compaction when the tour leaves step 1.
+15. WHEN the step-4 action creates and assigns the demo task and the view switches to the Office (unmounting the task form) THEN the system SHALL re-anchor the step card to the newly assigned task card ("Ship the demo feature") instead of falling back to a bottom-centred card, and SHALL keep re-anchoring until the card has settled.
+16. WHEN the tour is on step 6 ("Watch it finish") THEN the system SHALL follow the demo task card as the simulation moves it between board columns, SHALL keep it scrolled into view and highlighted, and SHALL re-anchor the step card to its live position; if the card is not on the board yet the system SHALL anchor to the task board instead.
+
 ### Data tools
 10. WHEN the founder presses Export THEN the system SHALL download the full crew state as a JSON file named `crewforge-crew.json`.
 11. WHEN the founder imports a file THEN the system SHALL replace the state only if the file parses as a valid CrewForge export; otherwise it SHALL refuse and SHALL say the file is not valid.
