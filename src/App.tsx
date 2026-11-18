@@ -228,7 +228,7 @@ export default function App() {
   };
 
   const handleReset = () => {
-    if (window.confirm('Reset the office to the demo MINOKATSU crew? Your current crew will be replaced.')) {
+    if (window.confirm('Reset the office to the demo crew? Your current crew will be replaced.')) {
       setState(buildSeedState());
       setNotice('Demo crew restored.');
     }
@@ -318,7 +318,7 @@ export default function App() {
         {state.agents.length === 0 && state.tasks.length === 0 ? (
           <div className="empty-state">
             <h2>No crew yet</h2>
-            <p>Your office is empty. Load the demo MINOKATSU crew to see CrewForge in action.</p>
+            <p>Your office is empty. Load the demo crew to see CrewForge in action.</p>
             <button className="btn btn-primary" onClick={handleReset}>
               Load the demo crew
             </button>
