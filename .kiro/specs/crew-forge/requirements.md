@@ -6,7 +6,7 @@ The Forge is where the founder defines the crew and the work. It covers agent CR
 ## Glossary
 - **Agent:** a crew member with a name, role, division, color, emoji, and skills.
 - **Task:** a unit of work with a title, division, effort (1–5), priority, assignee, and status.
-- **Division:** one of the six MINOKATSU divisions. An agent belongs to exactly one division; a task belongs to exactly one division.
+- **Division:** one of the six office divisions. An agent belongs to exactly one division; a task belongs to exactly one division.
 
 ## Requirements
 
