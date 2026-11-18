@@ -41,6 +41,7 @@ crewforge/
 - `App.tsx` passes props; views never import `store.ts` or `sim.ts` directly (except through the callbacks App provides, plus read-only helpers from `types.ts`).
 - New components go in `src/components/` and are imported by exactly one view (or by `App.tsx`).
 - Reuse CSS classes from `src/index.css` (`.panel`, `.btn`, `.agent-card`, `.task-card`, `.board-col`, `.feed`, `.room`, `.stat`, `.form-card`, `.tour-card`, …). Add a new class only when no existing class fits, and document it in `structure.md`.
+- Tour overlay classes: `.tour-overlay` (transparent fixed shell, pointer-events none — children opt back in), `.tour-blocker` (transparent full-screen click swallow, keeps the tour modal), `.tour-dim` (full-screen dim with a `clip-path` cutout hole around the highlighted target), `.tour-card` (fixed-positioned by `DemoTour.tsx` via inline top/left, never overlapping the target), `.tour-card--fallback` (bottom-centred card, used only when a step's target is missing), `.tour-highlight` (green outline + glow, raises the target above the dim).
 
 ## DOM ids (stable — the demo tour targets them)
 - `#forge-view`, `#office-view`
